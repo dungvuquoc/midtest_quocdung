@@ -57,23 +57,20 @@ const categories = [
 
 const select = document.querySelector("select");
 let content = "";
-categories.forEach((item) => {
-  content += `
-    <option value="${item.id}">${item.name}</option>
-  `;
-  if (item.children) {
-    item.children.forEach((item2) => {
-      content += `
-      <option value="${item2.id}">-- ${item2.name}</option>
-    `;
-      if (item2.children) {
-        item2.children.forEach((item3) => {
-          content += `
-        <option value="${item3.id}">---- ${item3.name}</option>
-      `;
-        });
-      }
-    });
-  }
-});
+function genElement(arr, str) {
+  arr.forEach((item) => {
+    content += `<option value="${item.id}">`;
+    if (str === "") {
+    } else {
+      str += " ";
+    }
+    content += str + `${item.name}</option>`;
+    str = str.slice(0, str.length - 1);
+    if (item.children) {
+      genElement(item.children, str + "--");
+    }
+  });
+}
+genElement(categories, "");
+console.log(content);
 select.innerHTML = content;

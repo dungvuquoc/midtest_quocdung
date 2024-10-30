@@ -8,7 +8,7 @@ function taxiFare(km) {
     return "invalid";
   }
   if (km <= 1) {
-    return km * 5000;
+    return 5000;
   } else if (km <= 30) {
     return 1 * 5000 + (km - 1) * 4000;
   } else {
